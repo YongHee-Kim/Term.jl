@@ -49,9 +49,11 @@ import Term: Panel, TextBox, cleantext
           "╭────────────────────────╮\n│ 나랏말싸미 듕귁에 달아 │\n╰────────────────────────╯"
     @test string(p8) == "╭────────────────╮\n│ こんにちは(わ) │\n╰────────────────╯"
 
+    p9 = Panel("Fixed Height Panel"; height = 4)
+    @test all(map(el -> el.measure.w, p9.segments) .== p9.measure.w) 
 
     # check all  lines in each panel have exactly the same size
-    for panel in (p1, p2, p3, p4, p5, p6, p7, p8)
+    for panel in (p1, p2, p3, p4, p5, p6, p7, p8, p9)
         _p = string(panel)
         widths = textwidth.(cleantext.(split(_p, "\n")))
         @test length(unique(widths)) == 1
