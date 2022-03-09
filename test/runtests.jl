@@ -1,5 +1,9 @@
 using Term
 using Test
+using Suppressor
+
+# using Pkg
+# Pkg.test("Term",coverage=true)
 
 
 nlines(x) = length(split(x, "\n"))
@@ -11,6 +15,8 @@ const TIMEROUTPUT = TimerOutputs.TimerOutput()
 macro timeit_include(path::AbstractString)
     :(@timeit TIMEROUTPUT $path include($path))
 end
+
+@timeit_include("00_empty.jl")
 
 
 print("\n\n")
@@ -40,6 +46,14 @@ print("\n\n")
 print("\n\n")
 @timeit_include("09_test_inspect.jl")
 
+print("\n\n")
+@timeit_include("10_test_logging.jl")
+
+print("\n\n")
+@timeit_include("11_test_errors.jl")
+
+print("\n\n")
+@timeit_include("12_test_console.jl")
 
 show(TIMEROUTPUT; compact = true, sortby = :firstexec)
 println("\n")
